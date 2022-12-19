@@ -17,7 +17,7 @@ class ScheduleManager
     {
         $result = pg_query_params(
             $this->dbConnector->getConnection(),
-            'SELECT sc.Id, s.Name, l.Name, Classroom, DayOfWeek, Address, StartTime, EndTime
+            'SELECT sc.Id, s.Name as subject, l.Name, Classroom, DayOfWeek, Address, StartTime, EndTime
             FROM Schedule sc JOIN Subject s ON sc.SubjectId = s.Id JOIN Lector l ON l.Id = sc.LectorId
             WHERE sc.GroupId = $1 and (sc.Week = $2 or sc.Week = $3)
             ORDER BY DayOfWeek, StartTime;',

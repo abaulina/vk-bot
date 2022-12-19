@@ -1,4 +1,5 @@
 <?php
+namespace App\bot;
 
 const SECRET = 'mySuperUniqueSecret';
 const GROUP_ID = 217511379;

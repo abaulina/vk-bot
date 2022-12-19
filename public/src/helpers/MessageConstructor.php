@@ -11,6 +11,7 @@ class MessageConstructor
     const GROUP_OPTIONS_MESSAGE = "Видишь подходящую?";
     const WEEK_SCHEDULE_NOT_FOUND_MESSAGE = "Кажется, такого расписания нет...";
     const DAY_SCHEDULE_NOT_FOUND_MESSAGE = "Кажется, сегодня занятий нет. Отдыхаем!";
+    const EOL = "\r\n";
 
     private function getDayByDayNumber($dayOfWeek): string
     {
@@ -59,9 +60,9 @@ class MessageConstructor
     {
         $message = "";
         for ($i = 0; $i < count($schedule); ++$i) {
-            $message .= ($i + 1) . '.' . $schedule[$i]["subject"] . PHP_EOL
-                . $schedule[$i]["name"] . $schedule[$i]["classroom"] . $schedule[$i]["address"] . PHP_EOL
-                . $schedule[$i]["starttime"] . '-' . $schedule[$i]["endtime"] . PHP_EOL;
+            $message .= self::EOL . ($i + 1) . '.' . $schedule[$i]["subject"] . self::EOL
+                . $schedule[$i]["name"] . self::EOL . $schedule[$i]["classroom"] . $schedule[$i]["address"] . self::EOL
+                . $schedule[$i]["starttime"] . '-' . $schedule[$i]["endtime"] . self::EOL;
         }
 
         return $message;
@@ -77,16 +78,16 @@ class MessageConstructor
             $dayOfWeek = $schedule[$i]["dayofweek"];
 
             if ($i > 0 && $dayOfWeek == $schedule[$i - 1]["dayofweek"]) {
-                $message .= $lessonNumber . '.' . $schedule[$i]["subject"] . PHP_EOL
-                    . $schedule[$i]["name"] . $schedule[$i]["classroom"] . ' ' . $schedule[$i]["address"] . PHP_EOL
-                    . $schedule[$i]["starttime"] . '-' . $schedule[$i]["endtime"] . PHP_EOL;
+                $message .= $lessonNumber . '.' . $schedule[$i]["subject"] . self::EOL
+                    . $schedule[$i]["name"] . self::EOL . $schedule[$i]["classroom"] . ' ' . $schedule[$i]["address"] . self::EOL
+                    . $schedule[$i]["starttime"] . '-' . $schedule[$i]["endtime"] . self::EOL;
             } else {
                 $lessonNumber = 1;
                 $day = $this->getDayByDayNumber($dayOfWeek);
-                $message .= $day . PHP_EOL
-                    . $lessonNumber . '.' . $schedule[$i]["subject"] . PHP_EOL
-                    . $schedule[$i]["name"] . $schedule[$i]["classroom"] . ' ' . $schedule[$i]["address"] . PHP_EOL
-                    . $schedule[$i]["starttime"] . '-' . $schedule[$i]["endtime"] . PHP_EOL;
+                $message .= self::EOL . $day . self::EOL
+                    . $lessonNumber . '.' . $schedule[$i]["subject"] . self::EOL
+                    . $schedule[$i]["name"] . self::EOL . $schedule[$i]["classroom"] . ' ' . $schedule[$i]["address"] . self::EOL
+                    . $schedule[$i]["starttime"] . '-' . $schedule[$i]["endtime"] . self::EOL;
             }
 
             $lessonNumber += 1;

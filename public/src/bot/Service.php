@@ -82,7 +82,7 @@ class Service
 
     private function getGroupOptions(): array
     {
-        $result = $this->groupManager->getAllGroupNames()();
+        $result = $this->groupManager->getAllGroupNames();
         if (!$result)
             return $this->getHelpMessage();
 
@@ -138,9 +138,8 @@ class Service
         $currentMonth = date("n");
         $currentYear = $currentMonth > 0 && $currentMonth < 9 ? date("Y") - 1 : date("Y");
         $time = strtotime("09/01/{$currentYear}");
-        $startDate = date('Y-m-d', $time);
 
-        $startWeekNumber = intval(date("W", $startDate));
+        $startWeekNumber = intval(date("W", $time));
         $currentWeekNumber = intval(date("W"));
 
         if ($currentMonth > 0 && $currentMonth < 9) {

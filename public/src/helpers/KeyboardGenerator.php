@@ -8,18 +8,18 @@ class KeyboardGenerator
     {
         return [
             "one_time" => false,
-            "buttons" => [[
-                ["action" => [
+            "buttons" => [
+                [["action" => [
                     "type" => "text",
                     "payload" => '{"command": "day"}',
                     "label" => "Сегодня"],
-                    "color" => "default"],
-                ["action" => [
+                    "color" => "primary"]],
+                [["action" => [
                     "type" => "text",
                     "payload" => '{"command": "week"}',
                     "label" => "Неделя"],
-                    "color" => "default"],
-            ]]];
+                    "color" => "default"]]
+            ]];
     }
 
     public function getGroupKeyboard($groups): array
@@ -28,8 +28,11 @@ class KeyboardGenerator
         $buttons = array();
 
         foreach ($groups as $group) {
-            $buttons[] =
-                array('action' => array('type' => 'text', 'payload' => array('command' => 'choose-group'), 'label' => $group["name"]), 'color' => 'default');
+            if(!$group["name"])
+                continue;
+
+            $buttons[] = array(
+                array('action' => array('type' => 'text', 'payload' => array('command' => 'group'), 'label' => $group["name"]), 'color' => 'primary'));
         }
 
         $keyboard["buttons"] = $buttons;
@@ -41,17 +44,17 @@ class KeyboardGenerator
     {
         return [
             "one_time" => false,
-            "buttons" => [[
-                ["action" => [
+            "buttons" => [
+                [["action" => [
                     "type" => "text",
                     "payload" => '{"command": "choose-group"}',
                     "label" => "Выбрать группу"],
-                    "color" => "default"],
-                ["action" => [
+                    "color" => "primary"]],
+               [["action" => [
                     "type" => "text",
                     "payload" => '{"command": "schedule"}',
                     "label" => "Расписание"],
-                    "color" => "default"],
-            ]]];
+                    "color" => "primary"]]
+            ]];
     }
 }
