@@ -1,3 +1,6 @@
+###############################################################################
+#                          Generated on phpdocker.io                          #
+###############################################################################
 version: '3.1'
 services:
     postgres:
@@ -20,7 +23,7 @@ services:
             - '.:/application'
             - './phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf'
         ports:
-            - '8080:80'
+            - '49000:80'
 
     php-fpm:
         build: phpdocker/php-fpm
