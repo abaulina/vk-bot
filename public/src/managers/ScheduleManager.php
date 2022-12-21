@@ -17,11 +17,12 @@ class ScheduleManager
     {
         $result = pg_query_params(
             $this->dbConnector->getConnection(),
-            'SELECT sc.Id, s.Name as subject, l.Name, Classroom, DayOfWeek, Address, StartTime, EndTime
+            'SELECT sc.Id, s.Name as subject, l.Name, Classroom, DayOfWeek, Address, 
+                    to_char(sc.starttime, $4) as starttime, to_char(sc.endtime , $4) as endtime
             FROM Schedule sc JOIN Subject s ON sc.SubjectId = s.Id JOIN Lector l ON l.Id = sc.LectorId
             WHERE sc.GroupId = $1 and (sc.Week = $2 or sc.Week = $3)
             ORDER BY DayOfWeek, StartTime;',
-            array($groupId, $weekType, "Both")
+            array($groupId, $weekType, "Both", 'HH24:MI')
         );
 
         if (!$result) {
@@ -35,11 +36,12 @@ class ScheduleManager
     {
         $result = pg_query_params(
             $this->dbConnector->getConnection(),
-            'SELECT sc.Id, s.Name as subject, l.Name, Classroom, DayOfWeek, Address, StartTime, EndTime
+            'SELECT sc.Id, s.Name as subject, l.Name, Classroom, DayOfWeek, Address,
+                    to_char(sc.starttime, $5) as starttime, to_char(sc.endtime , $5) as endtime
             FROM Schedule sc JOIN Subject s ON sc.SubjectId = s.Id JOIN Lector l ON l.Id = sc.LectorId
             WHERE sc.GroupId = $1 and sc.DayOfWeek = $2 and (sc.Week = $3 or sc.Week = $4)
             ORDER BY StartTime asc;',
-            array($groupId, $dayOfWeek, $weekType, 'Both')
+            array($groupId, $dayOfWeek, $weekType, 'Both', 'HH24:MI')
         );
 
         if (!$result) {

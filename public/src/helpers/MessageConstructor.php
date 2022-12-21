@@ -60,7 +60,7 @@ class MessageConstructor
     {
         $message = "";
         for ($i = 0; $i < count($schedule); ++$i) {
-            $message .= self::EOL . ($i + 1) . '.' . $schedule[$i]["subject"] . self::EOL
+            $message .= self::EOL . ($i + 1) . '. ' . $schedule[$i]["subject"] . self::EOL
                 . $schedule[$i]["name"] . self::EOL . $schedule[$i]["classroom"] . $schedule[$i]["address"] . self::EOL
                 . $schedule[$i]["starttime"] . '-' . $schedule[$i]["endtime"] . self::EOL;
         }
@@ -78,14 +78,14 @@ class MessageConstructor
             $dayOfWeek = $schedule[$i]["dayofweek"];
 
             if ($i > 0 && $dayOfWeek == $schedule[$i - 1]["dayofweek"]) {
-                $message .= $lessonNumber . '.' . $schedule[$i]["subject"] . self::EOL
+                $message .= $lessonNumber . '. ' . $schedule[$i]["subject"] . self::EOL
                     . $schedule[$i]["name"] . self::EOL . $schedule[$i]["classroom"] . ' ' . $schedule[$i]["address"] . self::EOL
                     . $schedule[$i]["starttime"] . '-' . $schedule[$i]["endtime"] . self::EOL;
             } else {
                 $lessonNumber = 1;
                 $day = $this->getDayByDayNumber($dayOfWeek);
                 $message .= self::EOL . $day . self::EOL
-                    . $lessonNumber . '.' . $schedule[$i]["subject"] . self::EOL
+                    . $lessonNumber . '. ' . $schedule[$i]["subject"] . self::EOL
                     . $schedule[$i]["name"] . self::EOL . $schedule[$i]["classroom"] . ' ' . $schedule[$i]["address"] . self::EOL
                     . $schedule[$i]["starttime"] . '-' . $schedule[$i]["endtime"] . self::EOL;
             }
