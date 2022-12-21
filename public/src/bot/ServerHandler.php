@@ -8,10 +8,6 @@ use VK\Client\VKApiClient;
 
 class ServerHandler extends VKCallbackApiServerHandler
 {
-    const SECRET = 'mySuperUniqueSecret';
-    const GROUP_ID = 217511379;
-    const CONFIRMATION_TOKEN = 'bd98980e';
-    const BOT_ACCESS_TOKEN = 'vk1.a.-XTtwA7rSDmN_i4m3vVEbcLOWPqWeyldsdgF2DOdZr0n58MIv870zZkyTfb4h3Rc5QFWEAI-TBEUveWqWgiE4d4y9MGtOksIBo2YOdiuMbyTFg4mjpABP6qFcUjqSWtKUFNbsfVQhEs-SpjCEYucZolD8vA2JK2XOBzvAlKhUpxZAir5KbsAoA_3NNJcUlgUBJm7zdSrxvQh89Jlvb4A9Q';
     private VKApiClient $vkApi;
     private Service $service;
 
@@ -23,14 +19,14 @@ class ServerHandler extends VKCallbackApiServerHandler
 
     function confirmation(int $group_id, ?string $secret)
     {
-        if ($secret === self::SECRET && $group_id === self::GROUP_ID) {
-            echo self::CONFIRMATION_TOKEN;
+        if ($secret === SECRET && $group_id === GROUP_ID) {
+            echo CONFIRMATION_TOKEN;
         }
     }
 
     public function messageNew(int $group_id, ?string $secret, array $object)
     {
-        if ($secret != self::SECRET) {
+        if ($secret != SECRET) {
             echo "nok";
             return;
         }
@@ -42,7 +38,7 @@ class ServerHandler extends VKCallbackApiServerHandler
 
         try{
             $result = $this->service->process($command, $text, $userId);
-            $this->vkApi->messages()->send(self::BOT_ACCESS_TOKEN, [
+            $this->vkApi->messages()->send(BOT_ACCESS_TOKEN, [
                 "user_id" => $userId,
                 "message" => $result["msg"],
                 "keyboard" => json_encode($result["keyboard"], JSON_UNESCAPED_UNICODE),
@@ -51,7 +47,7 @@ class ServerHandler extends VKCallbackApiServerHandler
         }
         catch (Exception) {
             $result = $this->service->getHelpMessage();
-            $this->vkApi->messages()->send(self::BOT_ACCESS_TOKEN, [
+            $this->vkApi->messages()->send(BOT_ACCESS_TOKEN, [
                 "user_id" => $userId,
                 "message" => $result["msg"],
                 "keyboard" => json_encode($result["keyboard"], JSON_UNESCAPED_UNICODE),
